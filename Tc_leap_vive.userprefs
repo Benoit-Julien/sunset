@@ -1,0 +1,18 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\StixGames - DirectX 11 Grass Shader\Grass.shader">
+    <Files>
+      <File FileName="Assets\Script\DeplacManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\Force.cs" Line="1" Column="1" />
+      <File FileName="Assets\Plugins\TCParticles\Implementation\internal\Collision\TCParticleColliderManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\StixGames - DirectX 11 Grass Shader\Scripts\RenderTextureDisplacement.cs" Line="1" Column="1" />
+      <File FileName="Assets\StixGames - DirectX 11 Grass Shader\Scripts\DisplacementTrailRenderer.cs" Line="1" Column="1" />
+      <File FileName="Assets\UniStorm (Desktop)\Scripts (Desktop)\UniStorm Systems\UniStormWeatherSystem_C.cs" Line="1" Column="1" />
+      <File FileName="Assets\StixGames - DirectX 11 Grass Shader\Grass.shader" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
