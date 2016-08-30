@@ -83,7 +83,7 @@ public class Souffleur : MonoBehaviour
 
 		transform.position = Vector3.Lerp(startMarker, endMarker, fracJourney);
 	
-		ForceExplosion.GetComponent<TCForce> ().power = 0+ Mathf.Min(fracJourney*10.0f, 1.0f)*80;
+		ForceExplosion.GetComponent<TCForce> ().power = 10+ Mathf.Min(fracJourney*10.0f, 1.0f)*80;
 		ForceTurbulence.GetComponent<TCForce> ().power = 0+ Mathf.Min(fracJourney*10.0f, 1.0f)*30;
 
 		//ForceTurbulence.GetComponent<TCForce> ().power = 20+fracJourney*20;

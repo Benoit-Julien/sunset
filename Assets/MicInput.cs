@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MicInput : MonoBehaviour {
+public class MicInput : MonoBehaviour
+{
 
 	public float MicLoudness;
 
@@ -51,20 +52,14 @@ public class MicInput : MonoBehaviour {
 	{
 		// levelMax equals to the highest normalized value power 2, a small number because < 1
 		// pass the value to a static var so we can access it from anywhere
-
-
 		MicLoudness = LevelMax ();
-
 	}
 
 	bool _isInitialized;
 	// start mic when scene starts
 	void OnEnable()
 	{
-		/*
-		InitMic();
-		_isInitialized=true;
-		*/
+		
 	}
 
 	//stop mic when loading a new level or quit application
@@ -81,25 +76,7 @@ public class MicInput : MonoBehaviour {
 
 	// make sure the mic gets started & stopped when application gets focused
 	void OnApplicationFocus(bool focus) {
-		/*
-		if (focus)
-		{
-			//Debug.Log("Focus");
-
-			if(!_isInitialized){
-				//Debug.Log("Init Mic");
-				InitMic();
-				_isInitialized=true;
-			}
-		}      
-		if (!focus)
-		{
-			//Debug.Log("Pause");
-			StopMicrophone();
-			//Debug.Log("Stop Mic");
-			_isInitialized=false;
-
-		}
-		*/
+		
 	}
+
 }

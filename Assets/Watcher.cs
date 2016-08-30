@@ -12,7 +12,7 @@ public class Watcher : MonoBehaviour
 {
 	public MicInput input;
 	public float actuelle;
-	public float seuil = 0.0001f; // 0.00005f; 
+	public float seuil = 0.000001f; // 0.00005f; 
 	public bool en_mesure_silence = false;
 	public float timeLeft = 1.0f;
 	public Evenement courant;
@@ -56,6 +56,12 @@ public class Watcher : MonoBehaviour
 		}
 		else
 		{
+			if(en_mesure_silence)
+			{
+				//Debug.Log("premiere valeur > seuil a "+Time.time);
+			
+			}
+
 			timeLeft = 1.0f;
 			en_mesure_silence = false;
 
@@ -67,20 +73,27 @@ public class Watcher : MonoBehaviour
 							
 
 
-				if(/*courant.average > 0.0005f &&*/ courant.peak > 0.001f /*&& courant.compte > 2 && !courant.souffle*/ /*&& courant.peak < 0.1f*/)
+				if(/*courant.average > 0.0005f &&*/ courant.peak > 0.00001f /*&& courant.compte > 2 && !courant.souffle*/ /*&& courant.peak < 0.1f*/)
 					{
-						//Debug.Log("EVENEMENT SOUFFLE");
+						//Debug.Log("EVENEMENT SOUFFLE a "+Time.time);
 						courant.souffle = true; //on autorise la scene a utiliser les valeurs de courant pour ses forces de souffle
 						//les valeurs vont evoluer
 
 						//todo : do an action here
 
+						bool avant = manager.soufflant;
+
+
 						manager.soufflant = true;
 
-						manager.son0.Play();
+						if(!avant)
+						{
+						manager.premierSouffle();
+						}
 
-					Invoke("SonCommence", 0.0f);
-						
+
+
+						//Invoke("SonCommence", 0.0f);
 					}
 				else
 				{
