@@ -1,64 +1,60 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
 
 public class DeplacManager : MonoBehaviour {
-	public float frequency = 0.1f;
-	public float miniDist = 0.1f;
+	public float CurrentSpeed;
+	public float MinimunSpeed = 0.4f;
 
-	private Vector3 BeforePos = new Vector3 ();
-	private Vector3 BeforePosWorld = new Vector3 ();
-
-	private Vector3 Deplacement = new Vector3 ();
-	private bool check = false;
-
-	public string main;
+	private float BeforeSpeed;
+	private Vector3 BeforePos;
+	private Vector3 BeforeRotation;
+	private Vector3 Movement;
+	private bool check;
+	private bool CoroutineState;
 
 	void OnEnable () {
-		//Debug.Log ("Enable");
+		Movement = new Vector3 ();
 		check = true;
-		StopCoroutine (MaCoroutine ());
-		StartCoroutine (MaCoroutine ());
-
+		CoroutineState = false;
 	}
 
-	IEnumerator MaCoroutine() {
-		while (true) {
-			yield return new WaitForSeconds (frequency);
-			if (!check) {
-				Deplacement = BeforePosWorld - transform.position;
-				if (Deplacement.magnitude > miniDist)
-					CreateMultipleForce ();
-			}
-			check = false;
-			BeforePos = transform.localPosition;
-			BeforePosWorld = transform.position;
-			yield return null;
-		}
+	void Update () {
+		if (!check) {
+			Movement = transform.position - BeforePos;
+			CurrentSpeed = Movement.magnitude / Time.deltaTime;
+
+			if (!CoroutineState && CurrentSpeed >= MinimunSpeed)
+				SendForce ();
+			else if (CurrentSpeed - BeforeSpeed > 1.5f)
+				SendForce ();
+
+		} else check = false;
+
+		BeforePos = transform.position;
+		BeforeRotation = transform.rotation.eulerAngles;
+		BeforeSpeed = CurrentSpeed;
 	}
 
-	void CreateMultipleForce() {
-		//if (Deplacement.magnitude < 0.1f)
-		CreateAndSendMouvement (BeforePosWorld);
-
-		/*else {
-			Vector3 Positions = new Vector3 ();
-			for (int c = 1; c <= 3; c++) {
-				Positions = (c / 3 * Deplacement) + BeforePos;
-				CreateAndSendMouvement (Positions);
-			}
-		}
-		*/
+	void SendForce () {
+		Debug.Log ("SendForce");
+		CreateAndSendMouvement (CurrentSpeed);
+		StopCoroutine ("WaitTime");
+		StartCoroutine (WaitTime (1 - CurrentSpeed / 10));
 	}
 
-	void CreateAndSendMouvement(Vector3 Pos) {
-
-		Debug.Log("CreateAndSendMouvement");
-
+	void CreateAndSendMouvement(float power) {
+		
 		GameObject child = Instantiate (Resources.Load ("Prefabs/Force", typeof(GameObject))) as GameObject;
+			
+		child.transform.Rotate (BeforeRotation);
+		child.transform.position = BeforePos;
+		child.GetComponent<Force> ().SendForce (power);
+	}
 
-		child.transform.Rotate (transform.rotation.eulerAngles);
-		child.transform.position = Pos;
-		child.GetComponent<Force> ().SendForce (main);
+	IEnumerator WaitTime(float wait) {
+		CoroutineState = true;
+		yield return new WaitForSeconds (wait);
+		CoroutineState = false;
+		yield return null;
 	}
 }

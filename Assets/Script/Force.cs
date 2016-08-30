@@ -1,27 +1,40 @@
 ﻿using UnityEngine;
 using System.Collections;
-//using UnityEditor;
+using UnityEditor;
 using System.ComponentModel.Design;
-using LibNoise;
-
+//using LibNoise;
 
 public class Force : MonoBehaviour
 {
-	public string main;
-
 	public GameObject ForceExplosion = null;
 	public GameObject ForceTurbulence = null;
-	public float DurationBeforeActivation = 0.01f;
+	public float DurationBeforeActivation = 0.1f;
+
+	private float power;
 
 	void Awake () {
 		ForceTurbulence.GetComponent<TCForce> ().enabled = false;
 		ForceExplosion.GetComponent<TCForce> ().enabled = false;
 	}
 
-	public void SendForce(string _main) {
-		main = _main;
+	public void SendForce(float _power) {
+		power = _power;
+		StartCoroutine (Forces ());
+	}
+
+	IEnumerator Forces () {
+		//yield return new WaitForSeconds (2.0f);
+
 		StartTween();
-		StartCoroutine (WaitToTurbu ());
+		StartCoroutine (WaitForEnable ());
+
+		//ForceTurbulence.GetComponent<TCForce> ().enabled = true;
+		//StartCoroutine (WaitToCut ());
+
+		//todo : tween pour avancer sur Z Vector force ET Turbulence
+		//en fadant leur puissance avant DurationBeforeCalm, du coup
+
+		yield return null;
 	}
 		
 	private Vector3 startMarker;
@@ -30,24 +43,12 @@ public class Force : MonoBehaviour
 	private float startTime;
 	private float journeyLength;
 
-
-
 	void StartTween() {
 		startMarker = new Vector3();
 		startMarker = transform.position;
 
 		endMarker = new Vector3();
-
-		if(main == "R")
-			transform.Rotate(0,20,0);
-		if(main == "L")
-			transform.Rotate(0,-20,0);
-		
 		endMarker = startMarker + 10 * transform.forward;
-
-
-
-
 
 		//Debug.Log(transform.position+" ?");
 		//Debug.Log(startMarker.position+" "+endMarker.position);
@@ -65,8 +66,8 @@ public class Force : MonoBehaviour
 
 		transform.position = Vector3.Lerp(startMarker, endMarker, fracJourney);
 	
-		ForceExplosion.GetComponent<TCForce> ().power = 4;// - Mathf.Min(fracJourney * 10.0f, 1.0f) * 4;
-		ForceTurbulence.GetComponent<TCForce> ().power = 1.5f;// - Mathf.Min(fracJourney * 10.0f, 1.0f) * 2.5f;
+		ForceExplosion.GetComponent<TCForce> ().power = (2 * power) - fracJourney * (2 * power);
+		ForceTurbulence.GetComponent<TCForce> ().power = (1 * power) - fracJourney * (1 * power);
 
 		//ForceTurbulence.GetComponent<TCForce> ().power = 20+fracJourney*20;
 
@@ -84,7 +85,7 @@ public class Force : MonoBehaviour
 			Destroy(gameObject);
 	}
 
-	IEnumerator WaitToTurbu () {
+	IEnumerator WaitForEnable () {
 
 		//acceleration force plutot que delai
 		yield return new WaitForSeconds (DurationBeforeActivation);
