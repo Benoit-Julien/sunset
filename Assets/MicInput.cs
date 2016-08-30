@@ -41,6 +41,11 @@ public class MicInput : MonoBehaviour {
 	}
 
 
+	void Start()
+	{
+		InitMic();
+		_isInitialized=true;
+	}
 
 	void Update()
 	{
@@ -56,8 +61,10 @@ public class MicInput : MonoBehaviour {
 	// start mic when scene starts
 	void OnEnable()
 	{
+		/*
 		InitMic();
 		_isInitialized=true;
+		*/
 	}
 
 	//stop mic when loading a new level or quit application
@@ -74,6 +81,7 @@ public class MicInput : MonoBehaviour {
 
 	// make sure the mic gets started & stopped when application gets focused
 	void OnApplicationFocus(bool focus) {
+		/*
 		if (focus)
 		{
 			//Debug.Log("Focus");
@@ -92,5 +100,6 @@ public class MicInput : MonoBehaviour {
 			_isInitialized=false;
 
 		}
+		*/
 	}
 }

@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{0ED8F953-74C3-7A99-365A-F70DC1EBE6F1}</ProjectGuid>
+    <ProjectGuid>{936BAF31-B624-E46E-4ADE-B9E1CFB55881}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -367,15 +367,15 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="LeapCSharp.NET3.5">
- <HintPath>C:/Users/nedd/Documents/Tc_leap_vive/Assets/Plugins/LeapCSharp.NET3.5.dll</HintPath>
+ <HintPath>C:/Users/nedd/Documents/Git/sunset/Assets/Plugins/LeapCSharp.NET3.5.dll</HintPath>
  </Reference>
  <Reference Include="LibNoise">
- <HintPath>C:/Users/nedd/Documents/Tc_leap_vive/Assets/Plugins/TCParticles/LibNoise/LibNoise.dll</HintPath>
+ <HintPath>C:/Users/nedd/Documents/Git/sunset/Assets/Plugins/TCParticles/LibNoise/LibNoise.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{94740AED-B45E-4FB1-98D3-1411AFD26C9F}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{3A209D34-B0B2-2BBD-6AF8-2B2E37A4226D}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -77,6 +77,8 @@ public class Watcher : MonoBehaviour
 
 						manager.soufflant = true;
 
+						manager.son0.Play();
+
 					Invoke("SonCommence", 0.0f);
 						
 					}

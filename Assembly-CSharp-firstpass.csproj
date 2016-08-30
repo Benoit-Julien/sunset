@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{94740AED-B45E-4FB1-98D3-1411AFD26C9F}</ProjectGuid>
+    <ProjectGuid>{3A209D34-B0B2-2BBD-6AF8-2B2E37A4226D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
@@ -268,10 +268,10 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="LeapCSharp.NET3.5">
- <HintPath>C:/Users/nedd/Documents/Tc_leap_vive/Assets/Plugins/LeapCSharp.NET3.5.dll</HintPath>
+ <HintPath>C:/Users/nedd/Documents/Git/sunset/Assets/Plugins/LeapCSharp.NET3.5.dll</HintPath>
  </Reference>
  <Reference Include="LibNoise">
- <HintPath>C:/Users/nedd/Documents/Tc_leap_vive/Assets/Plugins/TCParticles/LibNoise/LibNoise.dll</HintPath>
+ <HintPath>C:/Users/nedd/Documents/Git/sunset/Assets/Plugins/TCParticles/LibNoise/LibNoise.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

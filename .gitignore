@@ -1,2 +1,4 @@
 *.exe
 Temp/*
+Library/metadata/*
+Assets/Plugins/*

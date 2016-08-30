@@ -16,6 +16,12 @@ public class SouffleManager : MonoBehaviour {
 
 	public bool soufflant = false;
 
+	public AudioSource son0;
+	public AudioSource son1;
+	public AudioSource son2;
+	public AudioSource son3;
+	public AudioSource son4;
+
 	// Use this for initialization
 	void Start () {
 	
