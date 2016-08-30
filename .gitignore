@@ -1,3 +1,3 @@
 *.exe
 Temp/*
-Library/metadata/*
+Library/*
