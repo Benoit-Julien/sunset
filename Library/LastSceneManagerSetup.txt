@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/composition03.unity
-  isLoaded: 1
-  isActive: 1
