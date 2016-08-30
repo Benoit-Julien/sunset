@@ -1,3 +1,8 @@
 *.exe
 Temp/*
 Library/*
+Assets/Plugins/x86/*
+Assets/Plugins/x86_64/*
+Assets/Plugins/donotdelete.txt
+Assets/Plugins/LeapCSharp.NET3.5.dll
+*.meta
