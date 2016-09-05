@@ -12,9 +12,9 @@ public class Watcher : MonoBehaviour
 {
 	public MicInput input;
 	public float actuelle;
-	public float seuil = 0.000001f; // 0.00005f; 
+	public float seuil = 0.0001f; // 0.00005f; 
 	public bool en_mesure_silence = false;
-	public float timeLeft = 1.0f;
+	public float timeLeft = 0.2f;
 	public Evenement courant;
 
 	//debug editor
@@ -41,12 +41,13 @@ public class Watcher : MonoBehaviour
 		if (input.MicLoudness < seuil)
 		{
 			//Debug.Log("Silence.");
-			manager.soufflant = false;
+
 
 			timeLeft -= Time.deltaTime;
 
 			if(timeLeft <= 0 && !en_mesure_silence)
 			{
+				manager.soufflant = false;
 				//Debug.Log("courant CREE");
 				courant = this.gameObject.AddComponent<Evenement>();
 				en_mesure_silence = true;
@@ -62,7 +63,7 @@ public class Watcher : MonoBehaviour
 			
 			}
 
-			timeLeft = 1.0f;
+			timeLeft = 0.2f;
 			en_mesure_silence = false;
 
 			if(courant) 
@@ -73,7 +74,7 @@ public class Watcher : MonoBehaviour
 							
 
 
-				if(/*courant.average > 0.0005f &&*/ courant.peak > 0.00001f /*&& courant.compte > 2 && !courant.souffle*/ /*&& courant.peak < 0.1f*/)
+				if(/*courant.average > 0.0005f &&*/ courant.peak > 0.001f /*&& courant.compte > 2 && !courant.souffle*/ /*&& courant.peak < 0.1f*/)
 					{
 						//Debug.Log("EVENEMENT SOUFFLE a "+Time.time);
 						courant.souffle = true; //on autorise la scene a utiliser les valeurs de courant pour ses forces de souffle

@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Runtime.InteropServices;
 using System.Reflection;
+using UnityEngine.Audio;
+using System.Deployment.Internal;
 
 public class SouffleManager : MonoBehaviour {
 
@@ -16,19 +18,27 @@ public class SouffleManager : MonoBehaviour {
 
 	public bool soufflant = false;
 
-	public AudioSource son0;
-	public AudioSource son1;
-	public AudioSource son2;
-	public AudioSource son3;
-	public AudioSource son4;
+	public AudioMixer mixer;
 
-	private int son_index = 0;
-	private AudioSource[] sons ;
+	public int son_index = 0;
+	public AudioSource[] sons ;
+
+	public AnimationCurve courbe;
+	public bool[] fadingOut = {false, false, false, false, false};
+	public float[] fadeStartTime = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
 
 
 	// Use this for initialization
 	void Start () {
-		sons = new AudioSource[] {son0, son1, son2, son3, son4};
+		//sons = new AudioSource[] {son0, son1, son2, son3, son4};
+
+		//pour tests
+
+		/*
+		joueSon();
+		FadeOut();
+		*/
+
 	}
 
 
@@ -39,35 +49,50 @@ public class SouffleManager : MonoBehaviour {
 
 	private void joueSon()
 	{
-		sons[son_index].Play();
 		son_index++;
 
 		if(son_index > 4)
 			son_index = 0;
+
+		sons[son_index].Play();
+
 	}
 
 	public void premierSouffle()
 	{
-		//Debug.Log("premierSouffle "+Time.time);
+		Debug.Log("premierSouffle "+Time.time);
 		StartCoroutine ("BoucleEnvoi");
 		StartCoroutine (Coroutine ());
 
+		//son_index est incrémenté dans joueSon à chaque PremierSouffle
 		joueSon();
 
+
+	}
+
+	private void FadeOut()
+	{
+		Debug.Log("FadeOut "+Time.time);
+		fadingOut[son_index] = true;
+		fadeStartTime[son_index] = Time.time;
 	}
 
 	IEnumerator Coroutine () {
 		while (soufflant) {
 			yield return null;
 		}
-		//Debug.Log("Stop "+Time.time);
+		Debug.Log("Stop "+Time.time);
 		StopCoroutine("BoucleEnvoi");
+
+		FadeOut();
+
 		yield return null;
 	}
 
+	//Envoi de souffle si soufflant
 	IEnumerator BoucleEnvoi ()
 	{
-		//Debug.Log("Begin BoucleEnvoi "+Time.time);
+		Debug.Log("Begin BoucleEnvoi "+Time.time);
 		while(true)
 		{
 			if (soufflant) {
@@ -97,8 +122,7 @@ public class SouffleManager : MonoBehaviour {
 				Random.Range(0.0f,1.0f),
 				Random.Range(0.0f,1.0f),
 				Random.Range(0.0f,1.0f));
-
-
+	
 		//lancer le souffle de cet enfant
 		child.transform.position = transform.position;
 		child.transform.Rotate(GameObject.Find("Camera").transform.rotation.eulerAngles);
@@ -112,7 +136,40 @@ public class SouffleManager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		volume = MicInputer.GetComponent<MicInput> ().MicLoudness;
+
+		float duree = 2.0f;
+
+		//pour chaque fade possible
+		for (int i =0; i< 5; i++)
+		{
+
+			if(fadingOut[i])
+			{
+				float val = courbe.Evaluate(	(Time.time-fadeStartTime[i])/duree);
+				float fade = -80*val;
+
+				//Debug.Log(val +" / "+fade+" > "+Time.time);
+
+					mixer.SetFloat("volCh"+i, fade);
+				
+				if(val == 1.0f)
+				{
+					Debug.Log("val == 1.0f");
+					sons[i].Stop();
+					fadingOut[i] = false;
+
+					mixer.SetFloat("volCh"+i, -0.1f);
+				
+				}
+			}
+			else
+			{
+				//inutile, test anti cliquetis
+				mixer.SetFloat("volCh"+i, -0.1f);
+			}
+		}
 	}
 }
