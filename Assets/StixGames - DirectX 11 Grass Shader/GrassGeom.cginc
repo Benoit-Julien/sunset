@@ -362,7 +362,7 @@ void geom (point GS_INPUT p[1], inout TriangleStream<FS_INPUT> triStream)
 		//Vertex definition
 		#if defined(SIMPLE_GRASS) || defined(SIMPLE_GRASS_DENSITY)
 			//Simple grass has no texture, so the mesh has to look like a blade of grass
-			pIn.vertex =  float4((pos + width * groundRight * (1 - (sqrSegment/1.2))).xyz, 1);
+			pIn.vertex =  float4((pos + width * groundRight * (1 - (sqrSegment/1.0))).xyz, 1);
 		#else
 			pIn.vertex =  float4((pos + width * groundRight).xyz, 1);
 		#endif 

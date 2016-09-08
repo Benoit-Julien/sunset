@@ -243,7 +243,7 @@ namespace TC.Internal {
 							rc.Vtype = 1;
 						}
 						else if (col.BoxCollider != null) {
-							rc.Radius = 0f;
+							rc.Radius = 0.0f; //modif
 							rc.BoxSize = Vector3.Scale(col.BoxCollider.size * 0.5f, lscale);
 
 							rc.BoxSize = new Vector3(Mathf.Max(0, rc.BoxSize.x - rc.Radius),
@@ -337,11 +337,7 @@ namespace TC.Internal {
 						rc.AxisX = Transform.InverseTransformDirection(rc.AxisX);
 						rc.AxisY = Transform.InverseTransformDirection(rc.AxisY);
 						rc.AxisZ = Transform.InverseTransformDirection(rc.AxisZ);
-					rc.Velocity = Transform.InverseTransformDirection(rc.Velocity);
-
-
-					//rc.Velocity.Scale(new Vector3(10.01f,10.01f,10.01f));
-
+						rc.Velocity = Transform.InverseTransformDirection(rc.Velocity);
 						break;
 
 					case Space.Parent:

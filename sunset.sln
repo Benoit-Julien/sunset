@@ -9,6 +9,8 @@ Project("{88EB6061-4BB6-7782-BD8C-18AFB4438329}") = "sunset", "Assembly-CSharp-E
 EndProject
 Project("{88EB6061-4BB6-7782-BD8C-18AFB4438329}") = "sunset", "Assembly-CSharp-Editor.csproj", "{9CBD511C-BE0A-C8FE-9522-1CF269947EDA}"
 EndProject
+Project("{88EB6061-4BB6-7782-BD8C-18AFB4438329}") = "sunset", "Assembly-UnityScript-firstpass.unityproj", "{8E061BDD-B3D3-BC67-E3C6-8E621E834600}"
+EndProject
 Project("{88EB6061-4BB6-7782-BD8C-18AFB4438329}") = "sunset", "Assembly-UnityScript.unityproj", "{9A796A06-0BF4-C51E-A64E-2D5676F3FFC1}"
 EndProject
 Project("{88EB6061-4BB6-7782-BD8C-18AFB4438329}") = "sunset", "Assembly-UnityScript-Editor.unityproj", "{75B7A9EE-C968-189B-12B3-1EF1241D9F9E}"
@@ -35,6 +37,10 @@ Global
 		{9CBD511C-BE0A-C8FE-9522-1CF269947EDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CBD511C-BE0A-C8FE-9522-1CF269947EDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CBD511C-BE0A-C8FE-9522-1CF269947EDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E061BDD-B3D3-BC67-E3C6-8E621E834600}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E061BDD-B3D3-BC67-E3C6-8E621E834600}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E061BDD-B3D3-BC67-E3C6-8E621E834600}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E061BDD-B3D3-BC67-E3C6-8E621E834600}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9A796A06-0BF4-C51E-A64E-2D5676F3FFC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9A796A06-0BF4-C51E-A64E-2D5676F3FFC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A796A06-0BF4-C51E-A64E-2D5676F3FFC1}.Release|Any CPU.ActiveCfg = Release|Any CPU

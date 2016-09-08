@@ -8,6 +8,7 @@ float CalcTessFactor (float3 wpos0, float3 wpos1)
 	fixed dist = distance (0.5 * (wpos0+wpos1), _WorldSpaceCameraPos);
 	// length of the edge
 	fixed len = distance(wpos0, wpos1);
+
 	// edgeLen is approximate desired size in pixels
 	return min(max(len * _ScreenParams.y / (_EdgeLength * dist), 1.0), pow(2,_MaxTessellation));
 }

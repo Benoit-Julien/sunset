@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UnityStandardAssets.ImageEffects
 {
-    /*[ExecuteInEditMode]*/
+    [ExecuteInEditMode]
     [RequireComponent (typeof(Camera))]
     [AddComponentMenu ("Image Effects/Bloom and Glow/Bloom (Optimized)")]
     public class BloomOptimized : PostEffectsBase
