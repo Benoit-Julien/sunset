@@ -8,6 +8,10 @@ public class MicVerb : MonoBehaviour {
 	AudioClip _clipRecord = new AudioClip();
 	int _sampleWindow = 128;
 
+	bool playing = false;
+
+	int tentatives = 0;
+
 	public string _device;
 
 	//public float MicLoudness;
@@ -23,9 +27,19 @@ public class MicVerb : MonoBehaviour {
 		audioSource = GetComponent<AudioSource>();
 		audioSource.clip = Microphone.Start(_device, true, 999, 44100);
 
+
 		while(!( Microphone.GetPosition(null) > 0))
-		{}
+		{
+
+			tentatives++;
+
+			if(tentatives > 999999)
+				return;
+
+		}
+		Debug.Log("tentatives = "+tentatives);
 		audioSource.Play();
+
 
 	}
 
@@ -56,6 +70,22 @@ public class MicVerb : MonoBehaviour {
 	void Update () {
 
 		//MicLoudness = LevelMax ();
+
+		if(!playing)
+		{
+
+			/*
+			if(( Microphone.GetPosition(null) > 0))
+			{
+				Debug.Log("Micro activé");
+
+				audioSource.Play();
+				playing = true;
+
+			}
+
+			*/
+		}
 
 	}
 }

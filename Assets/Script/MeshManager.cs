@@ -38,7 +38,9 @@ public class MeshManager : MonoBehaviour {
 	private float DefaultAmbientIntensity;
 	private float DefaultLightIntensity;
 
-	private float Find_On_List(Properties.WallType type, string letter) {
+	public bool done = false;
+
+	public float Find_On_List(Properties.WallType type, string letter) {
 		for (int c = 0; c < Walls.Count; c++) {
 			if (Walls [c].Type == type) {
 				if (letter == "X")
@@ -223,5 +225,6 @@ public class MeshManager : MonoBehaviour {
 				}
 			}
 		}
+		done = true;
 	}
 }

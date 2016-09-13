@@ -90,6 +90,7 @@
      <None Include="Assets\Plugins\TCParticles\Samples\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ShowAlphaChannel.shader" />
      <None Include="Assets\Plugins\TCParticles\Shaders\TCShaderInc.cginc" />
      <None Include="Assets\Plugins\TCParticles\Samples\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlowConeTap.shader" />
+     <None Include="Assets\SteamVR\Resources\SteamVR_Fade.shader" />
      <None Include="Assets\UniStorm (Mobile)\Scripts (Mobile)\Shaders\Current\Mobile\UniStorm Dynamic Light Clouds Mobile.shader" />
      <None Include="Assets\LeapMotion\Resources\LeapCG.cginc" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\SunShaftsComposite.shader" />
@@ -97,6 +98,7 @@
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrectionCurves.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\ScreenSpaceAmbientObscurance.shader" />
      <None Include="Assets\UniStorm (Desktop)\Scripts (Desktop)\Shaders\Current\UniStorm Mist (Unity 5).shader" />
+     <None Include="Assets\SteamVR\Resources\SteamVR_ClearAll.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\NFAA.shader" />
      <None Include="Assets\Plugins\TCParticles\Readme.txt" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\ScreenSpaceRaytrace.cginc" />
@@ -210,15 +212,18 @@
      <None Include="Assets\Plugins\TCParticles\Shaders\TCIncStructs.cginc" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\VignettingShader.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\LightTrails.shader" />
+     <None Include="Assets\SteamVR\Resources\SteamVR_SphericalProjection.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\Tonemapper.shader" />
      <None Include="Assets\Plugins\TCParticles\Shaders\TCIncHookOutput.cginc" />
      <None Include="Assets\LeapMotion\Version.txt" />
+     <None Include="Assets\SteamVR\Resources\SteamVR_AlphaOut.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BrightPassFilter.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\FXAA2.shader" />
      <None Include="Assets\UniStorm (Desktop)\Scripts (Desktop)\Shaders\Current\UniStorm Non-Dynamic Light Clouds.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrection3DLut.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\LensFlareCreate.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\EdgeDetectNormals.shader" />
+     <None Include="Assets\SteamVR\readme.txt" />
      <None Include="Assets\StixGames - DirectX 11 Grass Shader\GrassDynamicsShaders\MeshNormalRenderer.shader" />
      <None Include="Assets\Plugins\TCParticles\Samples\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\PrepareSunShaftsBlur.shader" />
      <None Include="Assets\UniStorm (Mobile)\Scripts (Mobile)\Shaders\Current\Mobile\UniStorm Sun Mobile.shader" />
@@ -227,6 +232,7 @@
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
      <None Include="Assets\Plugins\TCParticles\Shaders\TCShaderAdditiveSmooth.shader" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
+     <None Include="Assets\SteamVR\Resources\SteamVR_ColorOut.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\SimpleClear.shader" />
      <None Include="Assets\Plugins\TCParticles\Shaders\TCOffscreenGradient.shader" />
      <None Include="Assets\Standard Assets\Effects\TessellationShaders\Shaders\BumpedSpecularDisplacement.shader" />
