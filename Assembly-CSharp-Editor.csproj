@@ -48,6 +48,7 @@
      <Compile Include="Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
      <Compile Include="Assets\Editor\ImageEffects\CreaseShadingEditor.cs" />
      <Compile Include="Assets\Editor\MeshManagerEditor.cs" />
+     <Compile Include="Assets\Editor\RoomCylinderManagerEditor.cs" />
      <Compile Include="Assets\LeapMotion\Editor\CustomEditorBase.cs" />
      <Compile Include="Assets\LeapMotion\Editor\LeapHandControllerEditor.cs" />
      <Compile Include="Assets\LeapMotion\Editor\LeapImageRetrieverEditor.cs" />
@@ -192,6 +193,7 @@
      <None Include="Assets\StixGames - DirectX 11 Grass Shader\Grass.shader" />
      <None Include="Assets\UniStorm (Mobile)\Scripts (Mobile)\Shaders\Current\Mobile\UniStorm Mobile Stars.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseAndGrainDX11.shader" />
+     <None Include="Assets\BottleView\Shaders\StandardDS.shader" />
      <None Include="Assets\UniStorm (Desktop)\Scripts (Desktop)\Shaders\Current\UniStorm Dynamic Storm Clouds (Untity 5).shader" />
      <None Include="Assets\UniStorm (Desktop)\Additional Credit\Credit.txt" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BrightPassFilter2.shader" />

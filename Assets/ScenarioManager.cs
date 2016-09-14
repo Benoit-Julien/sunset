@@ -129,7 +129,7 @@ public class ScenarioManager : MonoBehaviour {
 
 		particleMaterialSunset.SetColor("_TintColor", new Color(0.5f,0.5f,0.5f,0.0f));
 
-		manager.StartCreating ();
+		//manager.StartCreating ();
 
 		AddTagRecursively (manager.gameObject, 8);
 		AddTagRecursively (GameObject.Find("CameraObjects"), 8);
@@ -160,11 +160,13 @@ public class ScenarioManager : MonoBehaviour {
 
 		//clic souris demarre transition
 
+
+		//TODO : leap Proximity Detector lance Anim particules + transition
 		if(Input.GetMouseButtonDown(0) && sceneActuelle == 0)
 		{
 			sceneActuelle = 1;
 
-			StartCoroutine ("TransitionScene");
+			//StartCoroutine ("TransitionScene");
 		}
 	}
 

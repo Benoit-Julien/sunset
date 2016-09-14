@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Valve.VR;
-using LibNoise;
-using UnityEditor;
 
 public class RoomCylinderManager : MonoBehaviour
 {
@@ -11,7 +9,7 @@ public class RoomCylinderManager : MonoBehaviour
 	public int FaceNumber = 60;
 	public Vector3 Dimension;
 	public Material WallMaterial1;
-	public Material WallMaterial2;
+	//public Material WallMaterial2;
 	public Material GroundMaterial;
 	public Material CeillingMaterial;
 
@@ -19,34 +17,68 @@ public class RoomCylinderManager : MonoBehaviour
 	[Range(0.0f, 1.0f)] public float HoleSizeX;
 	[Range(0.0f, 1.0f)] public float HoleSizeZ;
 
+	[Range(0.0f, 1.0f)] public float GroundLightHole;
 
-	private float Thickness = 0.1f;
+	public float Thickness;
+	public int LightNumber;
 
-	private GameObject CylinderWall1;
-	private GameObject CylinderWall2;
-	private GameObject CylinderGround;
-	private GameObject CylinderCeilling;
+	public GameObject CylinderWall1;
+	public GameObject CylinderWall2;
+	public GameObject CylinderGround;
+	public GameObject CylinderCeilling;
+	public GameObject LightsParent;
 
-	public void StartCreating () {
-		CylinderWall1 = new GameObject ("CylinderWall1");
-		CylinderWall2 = new GameObject ("CylinderWall2");
-		CylinderGround = new GameObject ("CylinderGround");
-		CylinderCeilling = new GameObject ("CylinderCeilling");
+	public void InitGameObject () {
+		if (CylinderWall1 == null) {
+			CylinderWall1 = new GameObject ("CylinderWall");
+			CylinderWall1.transform.parent = transform;
+			CylinderWall1.AddComponent<MeshFilter> ().sharedMesh = new Mesh ();
+			CylinderWall1.AddComponent<MeshRenderer> ();
+		}
+		CylinderWall1.GetComponent<MeshRenderer> ().material = (WallMaterial1 != null) ? WallMaterial1 : Resources.Load ("Material/Default-Material") as Material;
 
-		CylinderWall1.transform.parent = transform;
-		CylinderWall2.transform.parent = transform;
-		CylinderGround.transform.parent = transform;
-		CylinderCeilling.transform.parent = transform;
+		/*CylinderWall2 = GameObject.Find ("CylinderWall2");
+		if (CylinderWall2 == null) {
+			CylinderWall2 = new GameObject ("CylinderWall2");
+			CylinderWall2.transform.parent = transform;
+			CylinderWall2.AddComponent<MeshFilter> ().sharedMesh = new Mesh ();
+			CylinderWall2.AddComponent<MeshRenderer> ();
+		}
+		CylinderWall2.GetComponent<MeshRenderer> ().material = (WallMaterial2 != null) ? WallMaterial2 : Resources.Load ("Material/Default-Material") as Material;*/
 
-		CylinderWall1.AddComponent<MeshRenderer> ().material = (WallMaterial1 != null) ? WallMaterial1 : Resources.Load("Material/Default-Material", typeof(Material)) as Material;
-		CylinderWall2.AddComponent<MeshRenderer> ().material = (WallMaterial2 != null) ? WallMaterial2 : Resources.Load("Material/Default-Material", typeof(Material)) as Material;
-		CylinderGround.AddComponent<MeshRenderer> ().material = (GroundMaterial != null) ? GroundMaterial : Resources.Load("Material/Default-Material", typeof(Material)) as Material;
-		CylinderCeilling.AddComponent<MeshRenderer> ().material = (CeillingMaterial != null) ? CeillingMaterial : Resources.Load("Material/Default-Material", typeof(Material)) as Material;
-		CalculateVerts ();
+		if (CylinderGround == null) {
+			CylinderGround = new GameObject ("CylinderGround");
+			CylinderGround.transform.parent = transform;
+			CylinderGround.AddComponent<MeshFilter> ().sharedMesh = new Mesh ();
+			CylinderGround.AddComponent<MeshRenderer> ();
+		}
+		CylinderGround.GetComponent<MeshRenderer> ().material = (GroundMaterial != null) ? GroundMaterial : Resources.Load ("Material/Default-Material") as Material;
 
-		CylinderWall1.transform.Translate(0.0f, -2.0f,  0.0f);
-		CylinderWall2.transform.Translate(0.0f, -2.0f,  0.0f);
-		CylinderCeilling.transform.Translate(0.0f, -2.0f,  0.0f);
+		if (CylinderCeilling == null) {
+			CylinderCeilling = new GameObject ("CylinderCeilling");
+			CylinderCeilling.transform.parent = transform;
+			CylinderCeilling.AddComponent<MeshFilter> ().sharedMesh = new Mesh ();
+			CylinderCeilling.AddComponent<MeshRenderer> ();
+		}
+		CylinderCeilling.GetComponent<MeshRenderer> ().material = (CeillingMaterial != null) ? CeillingMaterial : Resources.Load ("Material/Default-Material") as Material;
+
+
+		if (LightsParent == null) {
+			LightsParent = new GameObject ("LightsParent");
+			LightsParent.transform.parent = transform;
+		}
+
+		int diff = LightsParent.transform.childCount - LightNumber;
+
+		if (diff < 0) {
+			for (int i = 0; i < diff * -1; i++) {
+				Instantiate (Resources.Load ("Prefabs/LightPrefab") as GameObject).name = "Point Light";
+			}
+		} else {
+			for (int i = LightsParent.transform.childCount - 1; i >= LightNumber; i--) {
+				DestroyImmediate (LightsParent.transform.GetChild (i).gameObject);
+			}
+		}
 	}
 
 	private Vector3[] CreateVerts (int faceNumber, float radiusX, float radiusZ, float Y, Vector3 center) {
@@ -65,7 +97,8 @@ public class RoomCylinderManager : MonoBehaviour
 		return Verts;
 	}
 
-	private void CalculateVerts() {
+	public void StartCreating () {
+		
 		var rect = new HmdQuad_t ();
 
 		if (!SteamVR_PlayArea.GetBounds (SteamVR_PlayArea.Size.Calibrated, ref rect)) {
@@ -73,6 +106,7 @@ public class RoomCylinderManager : MonoBehaviour
 
 			RadiusX = Dimension.x;
 			RadiusZ = Dimension.z;
+
 			CalculateWall (Dimension.x, Dimension.z, CamPos);
 			CalculateGround (Dimension.x, Dimension.z, CamPos);
 			CalculateCeilling (Dimension.x, Dimension.z, CamPos);
@@ -90,9 +124,23 @@ public class RoomCylinderManager : MonoBehaviour
 
 			RadiusX = X;
 			RadiusZ = Z;
+
 			CalculateWall (X, Z, center);
 			CalculateGround (X, Z, center);
 			CalculateCeilling (X, Z, center);
+		}
+
+		float AnglePos = 0;
+		GameObject[] lights = GameObject.FindGameObjectsWithTag ("Point Light");
+		float AngleSpeed = (lights.Length == 0) ? 0 : 360f / lights.Length;
+		for (int i = 0; i < lights.Length; i++) {
+			float x = Mathf.Cos (AnglePos * Mathf.PI / 180) * RadiusX;
+			float z = Mathf.Sin (AnglePos * Mathf.PI / 180) * RadiusZ;
+
+			lights[i].transform.parent = LightsParent.transform;
+			lights[i].transform.localPosition = new Vector3 (x, -8f, z);
+
+			AnglePos += AngleSpeed;
 		}
 	}
 
@@ -105,11 +153,11 @@ public class RoomCylinderManager : MonoBehaviour
 	private void CalculateWall(float radiusX, float radiusZ, Vector3 center) {
 		Vector3[] vertices = new Vector3[(FaceNumber * 4) * 4];
 
-		Vector3[] GroundVerts = CreateVerts (FaceNumber, Dimension.x, Dimension.z, 0, center);
-		Vector3[] CeillingVerts = CreateVerts (FaceNumber, Dimension.x, Dimension.z, (Dimension.y + Thickness) / 2, center);
+		Vector3[] GroundVerts = CreateVerts (FaceNumber, Dimension.x, Dimension.z, -Thickness, center);
+		Vector3[] CeillingVerts = CreateVerts (FaceNumber, Dimension.x, Dimension.z, Dimension.y + Thickness, center);
 
-		Vector3[] GroundVertsBis = CreateVerts (FaceNumber, radiusX + Thickness, radiusZ + Thickness, -Thickness / 2, center);
-		Vector3[] CeillingVertsBis = CreateVerts (FaceNumber, radiusX + Thickness, radiusZ + Thickness, (Dimension.y + Thickness) / 2, center);
+		Vector3[] GroundVertsBis = CreateVerts (FaceNumber, radiusX + Thickness, radiusZ + Thickness, -Thickness, center);
+		Vector3[] CeillingVertsBis = CreateVerts (FaceNumber, radiusX + Thickness, radiusZ + Thickness, Dimension.y + Thickness, center);
 
 		int i = 0;
 		int c = 0;
@@ -194,7 +242,8 @@ public class RoomCylinderManager : MonoBehaviour
 				uv [c++] = _00;
 		}
 
-		Mesh mesh = CylinderWall1.AddComponent<MeshFilter> ().mesh;
+		Mesh mesh = CylinderWall1.GetComponent<MeshFilter> ().sharedMesh;
+		mesh.Clear ();
 
 		mesh.vertices = vertices;
 		mesh.triangles = triangles;
@@ -202,42 +251,22 @@ public class RoomCylinderManager : MonoBehaviour
 		mesh.RecalculateNormals (60);
 		mesh.Optimize ();
 
-		CylinderWall2.AddComponent<MeshFilter> ().mesh = mesh;
-		CylinderWall2.transform.Translate (0, (Dimension.y + Thickness) / 2, 0);
+		//CylinderWall2.GetComponent<MeshFilter> ().sharedMesh = mesh;
 	}
 
 	private void CalculateGround (float radiusX, float radiusZ, Vector3 center) {
+		radiusX = radiusX * GroundLightHole;
+		radiusZ = radiusZ * GroundLightHole;
+		center.y = 0;
 
-		radiusX -= 2.8f;
-		radiusZ -= ((2.8f * Dimension.x)/ Dimension.z);
-
-		//TODO : placer pointlights autour de l'ellipse
-		for(float b = 0; b< 2.0f*Mathf.PI; b+= Mathf.PI/16.0f)
-		{
-			float _x = Mathf.Cos (b) * radiusX + center.x;
-			float _z = Mathf.Sin (b) * radiusZ + center.z;
-
-			GameObject tempLightObject = new GameObject();
-			Light pointComponent = tempLightObject.AddComponent<Light>();
-			pointComponent.type = LightType.Point;
-			pointComponent.intensity = 5.4f;
-			pointComponent.range = 12.5f;
-			pointComponent.renderMode = LightRenderMode.ForcePixel;
-			tempLightObject.transform.position = new Vector3(_x, -8.0f, _z);				
-
-		}
-
-
-
-
-		Vector3[] vertices = new Vector3[(FaceNumber * 3) * 2];
-		Vector3[] GroundVerts = CreateVerts (FaceNumber, radiusX + 0.0f*Thickness, radiusZ + 0.0f*Thickness, 0, center);
-		Vector3[] GroundVertsBis = CreateVerts (FaceNumber, radiusX + 0.0f*Thickness, radiusZ + 0.0f*Thickness, -Thickness, center);
+		Vector3[] vertices = new Vector3[(FaceNumber * 3) * 2 + FaceNumber * 4];
+		Vector3[] GroundVerts = CreateVerts (FaceNumber, radiusX, radiusZ, 0, center);
+		Vector3[] GroundVertsBis = CreateVerts (FaceNumber, radiusX, radiusZ, -Thickness, center);
+		Vector2 centerBis = new Vector3 (center.x, -Thickness, center.y);
 
 		int c = 0;
 		int i = 0;
-		center.y = 0;
-		while (c < (FaceNumber * 3) * 2) {
+		while (c < vertices.Length) {
 			if (c < FaceNumber * 3) {
 				vertices [c] = GroundVerts [i];
 				vertices [c + 1] = center;
@@ -245,30 +274,73 @@ public class RoomCylinderManager : MonoBehaviour
 				i = GetNext (i, GroundVerts);
 
 				vertices [c + 2] = GroundVerts [i];
-			} else {
+				c += 3;
+			} else if (c < (FaceNumber * 3) * 2) {
 				vertices [c] = GroundVertsBis [i];
 
 				i = GetNext (i, GroundVertsBis);
 
 				vertices [c + 1] = GroundVertsBis [i];
-				vertices [c + 2] = new Vector3 (center.x, -Thickness, center.y);
+				vertices [c + 2] = centerBis;
+				c += 3;
+			} else {
+				vertices [c] = GroundVerts [i];
+				vertices [c + 3] = GroundVertsBis [i];
+
+				i = GetNext (i, GroundVerts);
+
+				vertices [c + 1] = GroundVerts [i];
+				vertices [c + 2] = GroundVertsBis [i];
+				c += 4;
 			}
-			c += 3;
 		}
 
-		int[] triangles = new int[(FaceNumber * 3) * 2];
+		int[] triangles = new int[(FaceNumber * 3) * 2 + FaceNumber * 6];
 		for (c = 0; c < (FaceNumber * 3) * 2; c++) {
 			triangles [c] = c;
 		}
+		i = 0;
+		while (c < triangles.Length) {
+			if (c != 0 && c % 3 == 0 && c % 6 != 0) {
+				triangles [c] = c - (3 + i);
+				i += 2;
+			} else
+				triangles [c] = c - i;
+			c++;
+		}
 
-		Mesh mesh = CylinderGround.AddComponent<MeshFilter> ().mesh;
+		Vector2[] uv = new Vector2[vertices.Length];
+		Vector2 _00 = Vector2.zero;
+		Vector2 middle = new Vector2 (0.5f, 0.5f);
+
+		i = 0;
+		c = 0;
+		while (c < uv.Length) {
+			if (c < FaceNumber * 3) {
+				float x = (GroundVerts [i].x + radiusX) / (radiusX * 2);
+				float z = (GroundVerts [i].z + radiusZ) / (radiusZ * 2);
+
+				uv [c] = new Vector2 (x, z);
+				uv [c + 1] = middle;
+
+				i = GetNext (i, GroundVerts);
+				x = (GroundVerts [i].x + radiusX) / (radiusX * 2);
+				z = (GroundVerts [i].z + radiusZ) / (radiusZ * 2);
+
+				uv [c + 2] = new Vector2 (x, z);
+				c += 3;
+			} else
+				uv [c++] = _00;
+		}
+
+		Mesh mesh = CylinderGround.GetComponent<MeshFilter> ().sharedMesh;
+		mesh.Clear ();
 
 		mesh.vertices = vertices;
 		mesh.triangles = triangles;
+		mesh.uv = uv;
 		mesh.RecalculateNormals (60);
 		mesh.Optimize ();
-
-		//CylinderGround.transform.localScale = new Vector3(0.08f*Dimension.x, 1.0f, 0.08f*Dimension.z);
 	}
 
 	private void CalculateCeilling (float radiusX, float radiusZ, Vector3 center) {
@@ -276,10 +348,10 @@ public class RoomCylinderManager : MonoBehaviour
 		Vector3[] CeillingVerts = CreateVerts (FaceNumber, radiusX + Thickness, radiusZ + Thickness, Dimension.y, center);
 		Vector3[] CeillingVertsBis = CreateVerts (FaceNumber, radiusX + Thickness, radiusZ + Thickness, Dimension.y + Thickness, center);
 
-		HoleSizeX = (radiusX - radiusX * (1 - HoleSizeX)) / 2;
-		HoleSizeZ = (radiusZ - radiusZ * (1 - HoleSizeZ)) / 2;
-		Vector3[] HoleVerts = CreateVerts (FaceNumber, HoleSizeX, HoleSizeZ, Dimension.y, center);
-		Vector3[] HoleVertsBis = CreateVerts (FaceNumber, HoleSizeX, HoleSizeZ, Dimension.y + HoleThickness, center);
+		float HoleX = radiusX - radiusX * (1 - HoleSizeX);
+		float HoleZ = radiusZ - radiusZ * (1 - HoleSizeZ);
+		Vector3[] HoleVerts = CreateVerts (FaceNumber, HoleX, HoleZ, Dimension.y, center);
+		Vector3[] HoleVertsBis = CreateVerts (FaceNumber, HoleX, HoleZ, Dimension.y + HoleThickness, center);
 
 		int c = 0;
 		int i = 0;
@@ -327,14 +399,12 @@ public class RoomCylinderManager : MonoBehaviour
 				triangles [c] = c - i;
 		}
 
-		Mesh mesh = CylinderCeilling.AddComponent<MeshFilter> ().mesh;
+		Mesh mesh = CylinderCeilling.GetComponent<MeshFilter> ().sharedMesh;
+		mesh.Clear ();
 
 		mesh.vertices = vertices;
 		mesh.triangles = triangles;
 		mesh.RecalculateNormals (60);
 		mesh.Optimize ();
-
-		//AssetDatabase.CreateAsset(mesh, "Assets/Resources");
 	}
 }
-
